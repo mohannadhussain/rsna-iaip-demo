@@ -1,0 +1,28 @@
+<Configuration>
+    <Server
+        maxThreads="20"
+        port="8080"/>
+    <Pipeline name="RSNA IAIP DEMO 2021">
+        <DirectoryImportService
+            class="org.rsna.ctp.stdstages.DirectoryImportService"
+            import="roots/DirectoryImportService/import"
+            name="DirectoryImportService"
+            quarantine="quarantines/DirectoryImportService"
+            root="roots/DirectoryImportService"/>
+        <DicomAnonymizer
+            class="org.rsna.ctp.stdstages.DicomAnonymizer"
+            lookupTable="scripts/LookupTable.properties"
+            name="DicomAnonymizer"
+            quarantine="quarantines/DicomAnonymizer"
+            root="roots/DicomAnonymizer"
+            script="scripts/DicomAnonymizer.script"/>
+        <FileStorageService
+            class="org.rsna.ctp.stdstages.FileStorageService"
+            name="FileStorageService"
+            quarantine="quarantines/FileStorageService"
+            returnStoredFile="yes"
+            root="roots/FileStorageService"
+            setWorldReadable="yes"
+            setWorldWritable="yes"/>
+    </Pipeline>
+</Configuration>
