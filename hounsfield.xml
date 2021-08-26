@@ -6,16 +6,18 @@
  <p t="SITEID">1</p>
  <p t="TRIALNAME">Team Hounsfield</p>
  <p t="SUBJECT">Subject</p>
- <p t="PATIENT_NAME">STUDY^FRANK^N</p>
+ <p t="PATIENT_NAME">{PATIENT_NAME}</p>
+ <p t="PATIENT_MRN">{PATIENT_MRN}</p>
  <p t="PATIENT_DOB">19600101</p>
- <p t="UIDROOT">2.2021.7762.4247</p>
+ <p t="STUDY_ACCESSION">{STUDY_ACCESSION}</p>
+ <p t="UIDROOT">2.2021.7762.4247.{UID_POSTFIX}</p>
  <e en="T" t="00080005" n="SpecificCharacterSet">@keep()</e>
  <e en="F" t="00080008" n="ImageType"></e>
  <e en="T" t="00080012" n="InstanceCreationDate">@date()</e>
  <e en="F" t="00080013" n="InstanceCreationTime">@time()</e>
- <e en="T" t="00080014" n="InstanceCreatorUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00080014" n="InstanceCreatorUID">@hashuid(@UIDROOT,this)</e>
  <e en="T" t="00080016" n="SOPClassUID">@keep()</e>
- <e en="T" t="00080018" n="SOPInstanceUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00080018" n="SOPInstanceUID">@hashuid(@UIDROOT,this)</e>
  <e en="T" t="00080020" n="StudyDate">@date()</e>
  <e en="T" t="00080021" n="SeriesDate">@date()</e>
  <e en="T" t="00080022" n="AcquisitionDate">@date()</e>
@@ -29,11 +31,11 @@
  <e en="T" t="00080033" n="ContentTime">@time()</e>
  <e en="T" t="00080034" n="OverlayTime">@time()</e>
  <e en="T" t="00080035" n="CurveTime">@time()</e>
- <e en="T" t="00080050" n="AccessionNumber">@hash(this,16)</e>
+ <e en="T" t="00080050" n="AccessionNumber">@always()@param(@STUDY_ACCESSION)</e>
  <e en="F" t="00080052" n="QueryRetrieveLevel"></e>
  <e en="F" t="00080054" n="RetrieveAET"></e>
  <e en="F" t="00080056" n="InstanceAvailability"></e>
- <e en="T" t="00080058" n="FailedSOPInstanceUIDList">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00080058" n="FailedSOPInstanceUIDList">@hashuid(@UIDROOT,this)</e>
  <e en="F" t="00080060" n="Modality">@require()</e>
  <e en="F" t="00080061" n="ModalitiesInStudy"></e>
  <e en="F" t="00080064" n="ConversionType"></e>
@@ -54,8 +56,8 @@
  <e en="F" t="00080106" n="ContextGroupVersion"></e>
  <e en="F" t="00080107" n="ContextGroupLocalVersion"></e>
  <e en="F" t="0008010b" n="CodeSetExtensionFlag"></e>
- <e en="F" t="0008010c" n="PrivateCodingSchemeCreatorUID">@hashuid(@UIDROOT,this,StudyTime)</e>
- <e en="T" t="0008010d" n="CodeSetExtensionCreatorUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="F" t="0008010c" n="PrivateCodingSchemeCreatorUID">@hashuid(@UIDROOT,this)</e>
+ <e en="T" t="0008010d" n="CodeSetExtensionCreatorUID">@hashuid(@UIDROOT,this)</e>
  <e en="F" t="0008010f" n="ContextIdentifier"></e>
  <e en="T" t="00080201" n="TimezoneOffsetFromUTC">@remove()</e>
  <e en="T" t="00081010" n="StationName">@remove()</e>
@@ -85,10 +87,10 @@
  <e en="F" t="00081145" n="RefCurveSeq"></e>
  <e en="F" t="0008114a" n="RefInstanceSeq"></e>
  <e en="T" t="00081150" n="RefSOPClassUID">@keep()</e>
- <e en="T" t="00081155" n="RefSOPInstanceUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00081155" n="RefSOPInstanceUID">@hashuid(@UIDROOT,this)</e>
  <e en="F" t="0008115a" n="SOPClassesSupported"></e>
  <e en="F" t="00081160" n="RefFrameNumber"></e>
- <e en="T" t="00081195" n="TransactionUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00081195" n="TransactionUID">@hashuid(@UIDROOT,this)</e>
  <e en="F" t="00081197" n="FailureReason"></e>
  <e en="F" t="00081198" n="FailedSOPSeq"></e>
  <e en="F" t="00081199" n="RefSOPSeq"></e>
@@ -114,12 +116,12 @@
  <e en="F" t="00082242" n="TransducerPositionModifierSeq"></e>
  <e en="F" t="00082244" n="TransducerOrientationSeq"></e>
  <e en="F" t="00082246" n="TransducerOrientationModifierSeq"></e>
- <e en="T" t="00083010" n="IrradiationEventUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00083010" n="IrradiationEventUID">@hashuid(@UIDROOT,this)</e>
  <e en="T" t="00084000" n="IdentifyingComments">@remove()</e>
  <e en="F" t="00089007" n="FrameType"></e>
  <e en="F" t="00089092" n="ReferringImageEvidenceSeq"></e>
  <e en="F" t="00089121" n="RefRawDataSeq"></e>
- <e en="T" t="00089123" n="CreatorVersionUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00089123" n="CreatorVersionUID">@hashuid(@UIDROOT,this)</e>
  <e en="F" t="00089124" n="DerivationImageSeq"></e>
  <e en="F" t="00089154" n="SourceImageEvidenceSeq"></e>
  <e en="F" t="00089205" n="PixelPresentation"></e>
@@ -130,7 +132,7 @@
  <e en="F" t="00089215" n="DerivationCodeSeq"></e>
  <e en="F" t="00089237" n="RefGrayscalePresentationStateSeq"></e>
  <e en="T" t="00100010" n="PatientName">@always()@param(@PATIENT_NAME)</e>
- <e en="T" t="00100020" n="PatientID">@hash(this,10)</e>
+ <e en="T" t="00100020" n="PatientID">@always()@param(@PATIENT_MRN)</e>
  <e en="T" t="00100021" n="IssuerOfPatientID">@remove()</e>
  <e en="T" t="00100030" n="PatientBirthDate">@always()@param(@PATIENT_DOB)</e>
  <e en="T" t="00100032" n="PatientBirthTime">@remove()</e>
@@ -635,8 +637,8 @@
  <e en="F" t="00189239" n="SpecificAbsorptionRateSeq"></e>
  <e en="T" t="00189424" n="AcquisitionProtocolDescription">@remove()</e>
  <e en="T" t="0018a003" n="ContributionDescription">@remove()</e>
- <e en="T" t="0020000d" n="StudyInstanceUID">@hashuid(@UIDROOT,this,StudyTime)</e>
- <e en="T" t="0020000e" n="SeriesInstanceUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="0020000d" n="StudyInstanceUID">@hashuid(@UIDROOT,this)</e>
+ <e en="T" t="0020000e" n="SeriesInstanceUID">@hashuid(@UIDROOT,this)</e>
  <e en="T" t="00200010" n="StudyID">@empty()</e>
  <e en="F" t="00200011" n="SeriesNumber"></e>
  <e en="F" t="00200012" n="AcquisitionNumber"></e>
@@ -648,13 +650,13 @@
  <e en="F" t="00200026" n="LUTNumber"></e>
  <e en="F" t="00200032" n="ImagePosition"></e>
  <e en="F" t="00200037" n="ImageOrientation"></e>
- <e en="T" t="00200052" n="FrameOfReferenceUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00200052" n="FrameOfReferenceUID">@hashuid(@UIDROOT,this)</e>
  <e en="F" t="00200060" n="Laterality"></e>
  <e en="F" t="00200062" n="ImageLaterality"></e>
  <e en="F" t="00200100" n="TemporalPositionIdentifier"></e>
  <e en="F" t="00200105" n="NumberOfTemporalPositions"></e>
  <e en="F" t="00200110" n="TemporalResolution"></e>
- <e en="T" t="00200200" n="SynchronizationFrameOfReferenceUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00200200" n="SynchronizationFrameOfReferenceUID">@hashuid(@UIDROOT,this)</e>
  <e en="F" t="00201000" n="SeriesInStudy"></e>
  <e en="F" t="00201002" n="ImagesInAcquisition"></e>
  <e en="F" t="00201004" n="AcquisitionsInStudy"></e>
@@ -683,10 +685,10 @@
  <e en="F" t="00209156" n="FrameAcquisitionNumber"></e>
  <e en="F" t="00209157" n="DimensionIndexValues"></e>
  <e en="T" t="00209158" n="FrameComments">@remove()</e>
- <e en="T" t="00209161" n="ConcatenationUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00209161" n="ConcatenationUID">@hashuid(@UIDROOT,this)</e>
  <e en="F" t="00209162" n="InConcatenationNumber"></e>
  <e en="F" t="00209163" n="InConcatenationTotalNumber"></e>
- <e en="T" t="00209164" n="DimensionOrganizationUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00209164" n="DimensionOrganizationUID">@hashuid(@UIDROOT,this)</e>
  <e en="F" t="00209165" n="DimensionIndexPointer"></e>
  <e en="F" t="00209167" n="FunctionalGroupSequencePointer"></e>
  <e en="F" t="00209213" n="DimensionIndexPrivateCreator"></e>
@@ -734,11 +736,11 @@
  <e en="F" t="00281101" n="RedPaletteColorLUTDescriptor"></e>
  <e en="F" t="00281102" n="GreenPaletteColorLUTDescriptor"></e>
  <e en="F" t="00281103" n="BluePaletteColorLUTDescriptor"></e>
- <e en="T" t="00281199" n="PaletteColorLUTUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00281199" n="PaletteColorLUTUID">@hashuid(@UIDROOT,this)</e>
  <e en="F" t="00281201" n="RedPaletteColorLUTData"></e>
  <e en="F" t="00281202" n="GreenPaletteColorLUTData"></e>
  <e en="F" t="00281203" n="BluePaletteColorLUTData"></e>
- <e en="T" t="00281214" n="LargePaletteColorLUTUid">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00281214" n="LargePaletteColorLUTUid">@hashuid(@UIDROOT,this)</e>
  <e en="F" t="00281221" n="SegmentedRedPaletteColorLUTData"></e>
  <e en="F" t="00281222" n="SegmentedGreenPaletteColorLUTData"></e>
  <e en="F" t="00281223" n="SegmentedBluePaletteColorLUTData"></e>
@@ -945,7 +947,7 @@
  <e en="T" t="00402017" n="FillerOrderNumber">@empty()</e>
  <e en="T" t="00402400" n="ImagingServiceRequestComments">@remove()</e>
  <e en="T" t="00403001" n="ConfidentialityPatientData">@remove()</e>
- <e en="T" t="00404023" n="RefGenPurposeSchedProcStepTransUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="00404023" n="RefGenPurposeSchedProcStepTransUID">@hashuid(@UIDROOT,this)</e>
  <e en="T" t="00404025" n="ScheduledStationNameCodeSeq">@remove()</e>
  <e en="T" t="00404027" n="ScheduledStationGeographicLocCodeSeq">@remove()</e>
  <e en="T" t="00404028" n="PerformedStationNameCodeSeq">@remove()</e>
@@ -980,7 +982,7 @@
  <e en="T" t="0040a121" n="Date">@remove()</e>
  <e en="T" t="0040a122" n="Time">@remove()</e>
  <e en="T" t="0040a123" n="PersonName">@empty()</e>
- <e en="T" t="0040a124" n="UID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="0040a124" n="UID">@hashuid(@UIDROOT,this)</e>
  <e en="F" t="0040a130" n="TemporalRangeType"></e>
  <e en="F" t="0040a132" n="RefSamplePositions"></e>
  <e en="F" t="0040a136" n="RefFrameNumbers"></e>
@@ -1008,8 +1010,8 @@
  <e en="F" t="0040db06" n="TemplateVersion"></e>
  <e en="F" t="0040db07" n="TemplateLocalVersion"></e>
  <e en="F" t="0040db0b" n="TemplateExtensionFlag"></e>
- <e en="T" t="0040db0c" n="TemplateExtensionOrganizationUID">@hashuid(@UIDROOT,this,StudyTime)</e>
- <e en="T" t="0040db0d" n="TemplateExtensionCreatorUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="0040db0c" n="TemplateExtensionOrganizationUID">@hashuid(@UIDROOT,this)</e>
+ <e en="T" t="0040db0d" n="TemplateExtensionCreatorUID">@hashuid(@UIDROOT,this)</e>
  <e en="F" t="0040db73" n="RefContentItemIdentifier"></e>
  <e en="T" t="00540016" n="RadiopharmaceuticalInformationSeq">@always()@process()</e>
  <e en="T" t="00603000" n="OverlayData">@remove()</e>
@@ -1017,8 +1019,8 @@
  <e en="T" t="00700001" n="GraphicAnnotationSequence">@remove()</e>
  <e en="T" t="00700084" n="ContentCreatorsName">@empty()</e>
  <e en="T" t="00700086" n="ContentCreatorsIdCodeSeq">@remove()</e>
- <e en="T" t="0070031a" n="FiducialUID">@hashuid(@UIDROOT,this,StudyTime)</e>
- <e en="T" t="00880140" n="StorageMediaFilesetUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="0070031a" n="FiducialUID">@hashuid(@UIDROOT,this)</e>
+ <e en="T" t="00880140" n="StorageMediaFilesetUID">@hashuid(@UIDROOT,this)</e>
  <e en="T" t="00880200" n="IconImageSequence">@remove()</e>
  <e en="T" t="00880904" n="TopicTitle">@remove()</e>
  <e en="T" t="00880906" n="TopicSubject">@remove()</e>
@@ -1032,9 +1034,9 @@
  <e en="T" t="04000561" n="OriginalAttributesSequence">@remove()</e>
  <e en="T" t="20300020" n="TextString">@remove()</e>
  <e en="T" t="30060008" n="StructureSetDate">@date()</e>
- <e en="T" t="30060024" n="ReferencedFrameOfReferenceUID">@hashuid(@UIDROOT,this,StudyTime)</e>
- <e en="T" t="300600c2" n="RelatedFrameOfReferenceUID">@hashuid(@UIDROOT,this,StudyTime)</e>
- <e en="T" t="300a0013" n="DoseReferenceUID">@hashuid(@UIDROOT,this,StudyTime)</e>
+ <e en="T" t="30060024" n="ReferencedFrameOfReferenceUID">@hashuid(@UIDROOT,this)</e>
+ <e en="T" t="300600c2" n="RelatedFrameOfReferenceUID">@hashuid(@UIDROOT,this)</e>
+ <e en="T" t="300a0013" n="DoseReferenceUID">@hashuid(@UIDROOT,this)</e>
  <e en="T" t="300e0008" n="ReviewerName">@remove()</e>
  <e en="T" t="40000010" n="Arbitrary">@remove()</e>
  <e en="F" t="40000404" n="MAC"></e>

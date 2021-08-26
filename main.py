@@ -1,4 +1,4 @@
-import sys, argparse, os.path, time
+import sys, argparse, os.path, time, datetime
 from os import path
 
 DCMSND_PATH = '~/Apps/dcm4che-2.0.29/bin/dcmsnd'
@@ -36,12 +36,22 @@ if __name__ == '__main__':
     killCtp()
     time.sleep(5)
     print('Killed CTP', flush=True)
-    os.system(f"rm -rf {ctpPath}/roots/DicomAnonymizer/*")
-    os.system(f"rm -rf {ctpPath}/roots/DirectoryImportService/*")
-    os.system(f"rm -rf {ctpPath}/roots/FileStorageService/*")
+    os.system(f"rm -rf {ctpPath}/roots/*")
+    os.system(f"rm -rf {ctpPath}/quarantines/*")
 
     # Step 2: Replace CTP's anonymization script
-    os.system(f"rm -rf {ctpPath}/scripts/DicomAnonymizer.script; ln -s {os.getcwd()}/{team}.xml {ctpPath}/scripts/DicomAnonymizer.script")
+    os.system(f"cp {os.getcwd()}/{team}.xml {ctpPath}/scripts/DicomAnonymizer.script")
+    scriptFile = open(f"{ctpPath}/scripts/DicomAnonymizer.script", mode='r+')
+    now = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    anonScript = scriptFile.read()
+    anonScript = anonScript.replace("{UID_POSTFIX}", now)
+    anonScript = anonScript.replace("{STUDY_ACCESSION}", f"acn{now}")
+    anonScript = anonScript.replace("{PATIENT_MRN}", f"mrn{now}")
+    anonScript = anonScript.replace("{PATIENT_NAME}", f"STUDY^FRANK^{now}")
+    scriptFile.seek(0)
+    scriptFile.write(anonScript)
+    scriptFile.truncate()
+    scriptFile.close()
 
     # Step 3: Start CTP
     os.system(f"cd {ctpPath}; java -jar Runner.jar &")
