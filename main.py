@@ -40,7 +40,7 @@ if __name__ == '__main__':
     os.system(f"rm -rf {ctpPath}/quarantines/*")
 
     # Step 2: Replace CTP's anonymization script
-    os.system(f"cp {os.getcwd()}/{team}.xml {ctpPath}/scripts/DicomAnonymizer.script")
+    os.system(f"cp {os.getcwd()}/anonymizer.xml {ctpPath}/scripts/DicomAnonymizer.script")
     scriptFile = open(f"{ctpPath}/scripts/DicomAnonymizer.script", mode='r+')
     now = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     anonScript = scriptFile.read()
@@ -48,6 +48,7 @@ if __name__ == '__main__':
     anonScript = anonScript.replace("{STUDY_ACCESSION}", f"acn{now}")
     anonScript = anonScript.replace("{PATIENT_MRN}", f"mrn{now}")
     anonScript = anonScript.replace("{PATIENT_NAME}", f"STUDY^FRANK^{now}")
+    anonScript = anonScript.replace("{TEAM_NAME}", team)
     scriptFile.seek(0)
     scriptFile.write(anonScript)
     scriptFile.truncate()

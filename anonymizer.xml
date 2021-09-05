@@ -4,7 +4,7 @@
  <p t="PROJECTNAME">Imaging AI in Practice 2021</p>
  <p t="SITENAME">RSNA</p>
  <p t="SITEID">1</p>
- <p t="TRIALNAME">Team Curie</p>
+ <p t="TRIALNAME">{TEAM_NAME}</p>
  <p t="SUBJECT">Subject</p>
  <p t="PATIENT_NAME">{PATIENT_NAME}</p>
  <p t="PATIENT_MRN">{PATIENT_MRN}</p>
@@ -41,7 +41,7 @@
  <e en="F" t="00080064" n="ConversionType"></e>
  <e en="F" t="00080068" n="PresentationIntentType"></e>
  <e en="T" t="00080070" n="Manufacturer">@keep()</e>
- <e en="T" t="00080080" n="InstitutionName">@remove()</e>
+ <e en="T" t="00080080" n="InstitutionName">@always()@param(@TRIALNAME)</e>
  <e en="T" t="00080081" n="InstitutionAddress">@remove()</e>
  <e en="T" t="00080082" n="InstitutionCodeSeq">@remove()</e>
  <e en="T" t="00080090" n="ReferringPhysicianName">@empty()</e>
