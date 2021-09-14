@@ -47,7 +47,7 @@ if __name__ == '__main__':
     # Step 2: Replace CTP's anonymization script
     os.system(f"cp {os.getcwd()}/anonymizer.xml {ctpPath}/scripts/DicomAnonymizer.script")
     scriptFile = open(f"{ctpPath}/scripts/DicomAnonymizer.script", mode='r+')
-    now = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    now = datetime.datetime.now().strftime("%m%d%H%M%S")
     anonScript = scriptFile.read()
     anonScript = anonScript.replace("{UID_POSTFIX}", now)
     anonScript = anonScript.replace("{STUDY_ACCESSION}", f"acn{now}")
