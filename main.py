@@ -2,9 +2,13 @@ import sys, argparse, os.path, time, datetime
 from os import path
 
 DCMSND_PATH = '~/Apps/dcm4che-2.0.29/bin/dcmsnd'
+STOWRS_PATH = '~/Apps/dcm4che-5.23.2/bin/stowrs'
 DICOM_DEST = {'curie': [{'host':'hackathon.siim.org','port':4242,'aet':'ORTHANC'}],
               'hounsfield':[{'host':'hackathon.siim.org','port':4242,'aet':'ORTHANC'}],
               'rontgen':[{'host':'hackathon.siim.org','port':4242,'aet':'ORTHANC'}]}
+STOW_DEST = {'curie': [{'url':'http://localhost:8042/dicom-web'}],
+             'hounsfield': [{'url':'http://localhost:8042/dicom-web'}],
+             'rontgen': [{'url':'http://localhost:8042/dicom-web'}]}
 
 def killCtp():
     os.system("kill -9 `ps fax | grep -v 'grep' | grep CTP | head -n1 | cut -f2 -d' '`")
@@ -31,6 +35,7 @@ if __name__ == '__main__':
     dicomIn = args.dicom
     team = args.team
     dicomDestinations = DICOM_DEST[team]
+    stowDestinations = STOW_DEST[team]
 
     # Step 1: Kill CTP in case it is running and clean up its directories
     killCtp()
@@ -69,6 +74,12 @@ if __name__ == '__main__':
     for dest in dicomDestinations:
         os.system(f"{DCMSND_PATH} {dest['aet']}@{dest['host']}:{dest['port']} {ctpPath}/roots/FileStorageService/__default/*")
     print('Done with C-STOREs', flush=True)
+
+    # Step 6: STOW anonymized copy to destinations that do not support C-STORE
+    print('About to start STOWing anonymized DICOM', flush=True)
+    for dest in stowDestinations:
+        os.system(f"{STOWRS_PATH} --url '{dest['url']}' {ctpPath}/roots/FileStorageService/__default/")
+    print('Done with STOWs', flush=True)
 
     # Kill CTP as a just-in-case
     killCtp()
