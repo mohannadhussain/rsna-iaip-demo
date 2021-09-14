@@ -11,6 +11,7 @@
  <p t="PATIENT_DOB">19600101</p>
  <p t="STUDY_ACCESSION">{STUDY_ACCESSION}</p>
  <p t="UIDROOT">2.2021.7762.4247.{UID_POSTFIX}</p>
+ <p t="ISSUER_UID">2.2021.7762.4247.123456789.987654321</p>
  <e en="T" t="00080005" n="SpecificCharacterSet">@keep()</e>
  <e en="F" t="00080008" n="ImageType"></e>
  <e en="T" t="00080012" n="InstanceCreationDate">@date()</e>
@@ -32,6 +33,8 @@
  <e en="T" t="00080034" n="OverlayTime">@time()</e>
  <e en="T" t="00080035" n="CurveTime">@time()</e>
  <e en="T" t="00080050" n="AccessionNumber">@always()@param(@STUDY_ACCESSION)</e>
+ <e en="T" t="00080051" n="IssuerOfAccessionNumberSeq">@always()@process()</e>
+ <e en="T" t="00400031" n="LocalNamespaceEntityID">@always()@param(@ISSUER_UID)</e>
  <e en="F" t="00080052" n="QueryRetrieveLevel"></e>
  <e en="F" t="00080054" n="RetrieveAET"></e>
  <e en="F" t="00080056" n="InstanceAvailability"></e>
@@ -133,7 +136,7 @@
  <e en="F" t="00089237" n="RefGrayscalePresentationStateSeq"></e>
  <e en="T" t="00100010" n="PatientName">@always()@param(@PATIENT_NAME)</e>
  <e en="T" t="00100020" n="PatientID">@always()@param(@PATIENT_MRN)</e>
- <e en="T" t="00100021" n="IssuerOfPatientID">@remove()</e>
+ <e en="T" t="00100021" n="IssuerOfPatientID">@always()@param(@ISSUER_UID)</e>
  <e en="T" t="00100030" n="PatientBirthDate">@always()@param(@PATIENT_DOB)</e>
  <e en="T" t="00100032" n="PatientBirthTime">@remove()</e>
  <e en="T" t="00100040" n="PatientSex">@keep()</e>
