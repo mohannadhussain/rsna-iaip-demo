@@ -1,14 +1,14 @@
 import sys, argparse, os.path, time, datetime
 from os import path
 
-DCMSND_PATH = '~/Apps/dcm4che-2.0.29/bin/dcmsnd'
+STORESCU_PATH = '~/Apps/dcm4che-5.23.2/bin/storescu'
 STOWRS_PATH = '~/Apps/dcm4che-5.23.2/bin/stowrs'
-DICOM_DEST = {'curie': [{'host':'hackathon.siim.org','port':4242,'aet':'ORTHANC'}],
-              'hounsfield':[{'host':'hackathon.siim.org','port':4242,'aet':'ORTHANC'}],
-              'rontgen':[{'host':'hackathon.siim.org','port':4242,'aet':'ORTHANC'}]}
-STOW_DEST = {'curie': [{'url':'http://localhost:8042/dicom-web'}],
-             'hounsfield': [{'url':'http://localhost:8042/dicom-web'}],
-             'rontgen': [{'url':'http://localhost:8042/dicom-web'}]}
+DICOM_DEST = {'curie': [{'host':'localhost','port':4242,'aet':'ORTHANC'}],
+              'hounsfield':[{'host':'localhost','port':4242,'aet':'ORTHANC'}],
+              'rontgen':[{'host':'localhost','port':4242,'aet':'ORTHANC'}]}
+STOW_DEST = {'curie': [{'url':'http://localhost:8042/dicom-web/studies'}],
+             'hounsfield': [{'url':'http://localhost:8042/dicom-web/studies'}],
+             'rontgen': [{'url':'http://localhost:8042/dicom-web/studies'}]}
 
 def killCtp():
     os.system("kill -9 `ps fax | grep -v 'grep' | grep CTP | head -n1 | cut -f2 -d' '`")
@@ -72,7 +72,7 @@ if __name__ == '__main__':
     # Step 5: C-STORE anonymized copy to the given destinations for this configuration
     print('About to start C-STORing anonymized DICOM', flush=True)
     for dest in dicomDestinations:
-        os.system(f"{DCMSND_PATH} {dest['aet']}@{dest['host']}:{dest['port']} {ctpPath}/roots/FileStorageService/__default/*")
+        os.system(f"{STORESCU_PATH} -c {dest['aet']}@{dest['host']}:{dest['port']} {ctpPath}/roots/FileStorageService/__default/*")
     print('Done with C-STOREs', flush=True)
 
     # Step 6: STOW anonymized copy to destinations that do not support C-STORE
