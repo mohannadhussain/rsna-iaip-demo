@@ -3,9 +3,9 @@ from os import path
 
 STORESCU_PATH = '~/Apps/dcm4che-5.23.2/bin/storescu'
 STOWRS_PATH = '~/Apps/dcm4che-5.23.2/bin/stowrs'
-DICOM_DEST = {'curie': [{'host':'localhost','port':4242,'aet':'ORTHANC'}],
-              'hounsfield':[{'host':'localhost','port':4242,'aet':'ORTHANC'}],
-              'rontgen':[{'host':'localhost','port':4242,'aet':'ORTHANC'}]}
+DICOM_DEST = {'curie': [{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
+              'hounsfield':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
+              'rontgen':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}]}
 STOW_DEST = {'curie': [{'url':'http://localhost:8042/dicom-web/studies'}],
              'hounsfield': [{'url':'http://localhost:8042/dicom-web/studies'}],
              'rontgen': [{'url':'http://localhost:8042/dicom-web/studies'}]}
@@ -72,7 +72,10 @@ if __name__ == '__main__':
     # Step 5: C-STORE anonymized copy to the given destinations for this configuration
     print('About to start C-STORing anonymized DICOM', flush=True)
     for dest in dicomDestinations:
-        os.system(f"{STORESCU_PATH} -c {dest['aet']}@{dest['host']}:{dest['port']} {ctpPath}/roots/FileStorageService/__default/*")
+        params = ""
+        if( dest.headerOnly ):
+            params = "-s 7fe00010="
+        os.system(f"{STORESCU_PATH} -c {dest['aet']}@{dest['host']}:{dest['port']} {ctpPath}/roots/FileStorageService/__default/* {params}")
     print('Done with C-STOREs', flush=True)
 
     # Step 6: STOW anonymized copy to destinations that do not support C-STORE
