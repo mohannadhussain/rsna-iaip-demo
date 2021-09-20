@@ -64,7 +64,7 @@
  <e en="F" t="0008010f" n="ContextIdentifier"></e>
  <e en="T" t="00080201" n="TimezoneOffsetFromUTC">@remove()</e>
  <e en="T" t="00081010" n="StationName">@remove()</e>
- <e en="T" t="00081030" n="StudyDescription">@remove()</e>
+ <e en="T" t="00081030" n="StudyDescription">@keep()</e>
  <e en="F" t="00081032" n="ProcedureCodeSeq"></e>
  <e en="T" t="0008103e" n="SeriesDescription">@keep()</e>
  <e en="T" t="00081040" n="InstitutionalDepartmentName">@remove()</e>
@@ -256,7 +256,7 @@
  <e en="T" t="00181020" n="SoftwareVersion">@keep()</e>
  <e en="F" t="00181022" n="VideoImageFormatAcquired"></e>
  <e en="F" t="00181023" n="DigitalImageFormatAcquired"></e>
- <e en="T" t="00181030" n="ProtocolName">@remove()</e>
+ <e en="T" t="00181030" n="ProtocolName">@keep()</e>
  <e en="F" t="00181040" n="ContrastBolusRoute"></e>
  <e en="F" t="00181041" n="ContrastBolusVolume"></e>
  <e en="F" t="00181042" n="ContrastBolusStartTime"></e>
@@ -1005,9 +1005,9 @@
  <e en="F" t="0040a491" n="CompletionFlag"></e>
  <e en="F" t="0040a492" n="CompletionFlagDescription"></e>
  <e en="F" t="0040a493" n="VerificationFlag"></e>
- <e en="F" t="0040a504" n="ContentTemplateSeq">@process()</e>
+ <e en="F" t="0040a504" n="ContentTemplateSeq">@keep()</e>
  <e en="F" t="0040a525" n="IdenticalDocumentsSeq"></e>
- <e en="T" t="0040a730" n="ContentSeq">@remove()</e>
+ <e en="T" t="0040a730" n="ContentSeq">@keep()</e>
  <e en="F" t="0040b020" n="AnnotationSeq"></e>
  <e en="F" t="0040db00" n="TemplateIdentifier"></e>
  <e en="F" t="0040db06" n="TemplateVersion"></e>
