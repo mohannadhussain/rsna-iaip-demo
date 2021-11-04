@@ -13,7 +13,7 @@ STOW_DEST = {'curie': [{'name':'localhost','url':'http://localhost:8042/dicom-we
              'rontgen': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
              'prequel': []}
 
-LAST_NAMES = ['Andriole','Magudia','Shih','Heilbrun','Wiggins','Kahn','Flanders','Cook','Kohli','OConnor','Juluru','Houshmand','Tejani','Duvvuri','Weintraub','Triana','Dhanaliwala','Schmidt','Hussain','Carr','Khan','Knox']
+LAST_NAMES = ['Harrold','Green','Brown','James','Steel','Bond','Jones','Connor','Willams','Hortons','Park','Frederik','Singh','Patel','Hawk','Smith','Stephenson','Lewis','Nicholls','Howard','Grant','Liu','Victor','McDonald','Lamb','Young','Ali','Chan','Thompson','Morgan','Campbell','Noble','Bell']
 
 def killCtp():
     os.system("kill -9 `ps fax | grep -v 'grep' | grep CTP | head -n1 | cut -f2,3 -d' '`")
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     # Step 4: Copy DICOM to CTP's input directory, then wait for processing to happen
     os.system(f"cp -r {dicomIn}/* {ctpPath}/roots/DirectoryImportService/import/")
     print('Copied DICOM to CTP', flush=True)
-    time.sleep(60) #TODO This might be need to be bumped up on slower machines
+    time.sleep(100) #TODO This might be need to be bumped up on slower machines
 
     # Step 5: C-STORE anonymized copy to the given destinations for this configuration
     print('About to start C-STORing anonymized DICOM', flush=True)
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     # Step 6: STOW anonymized copy to destinations that do not support C-STORE
     print('About to start STOWing anonymized DICOM', flush=True)
     for dest in stowDestinations:
-        cmd = f"{STOWRS_PATH} --url '{dest['url']}' {ctpPath}/roots/FileStorageService/__default/ >> {log_directory}/stowrs-{dest['name']}-{now}.log 2>&1 &"
+        cmd = f"{STOWRS_PATH} --url '{dest['url']}' {ctpPath}/roots/FileStorageService/__default/ -a json -t json >> {log_directory}/stowrs-{dest['name']}-{now}.log 2>&1 &"
         print(cmd, flush=True)
         os.system(cmd)
     print('Done with STOWs', flush=True)
