@@ -5,13 +5,15 @@ STORESCU_PATH = '~/Apps/dcm4che-5.23.2/bin/storescu'
 STOWRS_PATH = '~/Apps/dcm4che-5.23.2/bin/stowrs'
 DICOM_DEST = {'curie': [{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
               'hounsfield':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
-              'rontgen':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}]}
+              'rontgen':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
+              'prequel':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':True}]}
 STOW_DEST = {'curie': [{'url':'http://localhost:8042/dicom-web/studies'}],
              'hounsfield': [{'url':'http://localhost:8042/dicom-web/studies'}],
-             'rontgen': [{'url':'http://localhost:8042/dicom-web/studies'}]}
+             'rontgen': [{'url':'http://localhost:8042/dicom-web/studies'}],
+             'prequel': []}
 
 def killCtp():
-    os.system("kill -9 `ps fax | grep -v 'grep' | grep CTP | head -n1 | cut -f2 -d' '`")
+    os.system("kill -9 `ps fax | grep -v 'grep' | grep CTP | head -n1 | cut -f2,3 -d' '`")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Manipulate CTP (Clinical Trials Processor) to generate a new copy of a given study')
@@ -28,7 +30,7 @@ if __name__ == '__main__':
         print(f"CTP path not found or not sufficient permissions: {args.ctp}", file=sys.stderr, flush=True)
         exit()
     if(args.team not in DICOM_DEST):
-        print(f"Unknown team: {args.script}", file=sys.stderr, flush=True)
+        print(f"Unknown team: {args.team}", file=sys.stderr, flush=True)
         exit()
 
     ctpPath = args.ctp
@@ -73,9 +75,12 @@ if __name__ == '__main__':
     print('About to start C-STORing anonymized DICOM', flush=True)
     for dest in dicomDestinations:
         params = ""
-        if( dest.headerOnly ):
+        if( 'headerOnly' in dest and dest['headerOnly'] == True ):
             params = "-s 7fe00010="
-        os.system(f"{STORESCU_PATH} -c {dest['aet']}@{dest['host']}:{dest['port']} {ctpPath}/roots/FileStorageService/__default/* {params}")
+        cmd = f"{STORESCU_PATH} -c {dest['aet']}@{dest['host']}:{dest['port']} {ctpPath}/roots/FileStorageService/__default/* {params}"
+        #print(cmd, flush=True)
+        os.system(cmd)
+
     print('Done with C-STOREs', flush=True)
 
     # Step 6: STOW anonymized copy to destinations that do not support C-STORE
