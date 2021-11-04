@@ -69,7 +69,7 @@ if __name__ == '__main__':
     # Step 4: Copy DICOM to CTP's input directory, then wait for processing to happen
     os.system(f"cp -r {dicomIn}/* {ctpPath}/roots/DirectoryImportService/import/")
     print('Copied DICOM to CTP', flush=True)
-    time.sleep(60)
+    time.sleep(60) #TODO This might be need to be bumped up on slower machines
 
     # Step 5: C-STORE anonymized copy to the given destinations for this configuration
     print('About to start C-STORing anonymized DICOM', flush=True)
@@ -77,7 +77,7 @@ if __name__ == '__main__':
         params = ""
         if( 'headerOnly' in dest and dest['headerOnly'] == True ):
             params = "-s 7fe00010="
-        cmd = f"{STORESCU_PATH} -c {dest['aet']}@{dest['host']}:{dest['port']} {ctpPath}/roots/FileStorageService/__default/* {params}"
+        cmd = f"{STORESCU_PATH} -b DEMOTOOL -c {dest['aet']}@{dest['host']}:{dest['port']} {ctpPath}/roots/FileStorageService/__default/* {params}"
         #print(cmd, flush=True)
         os.system(cmd)
 
