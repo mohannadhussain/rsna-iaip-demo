@@ -1,3 +1,4 @@
+import random
 import sys, argparse, os.path, time, datetime
 from os import path
 
@@ -11,6 +12,8 @@ STOW_DEST = {'curie': [{'url':'http://localhost:8042/dicom-web/studies'}],
              'hounsfield': [{'url':'http://localhost:8042/dicom-web/studies'}],
              'rontgen': [{'url':'http://localhost:8042/dicom-web/studies'}],
              'prequel': []}
+
+LAST_NAMES = ['Andriole','Magudia','Shih','Heilbrun','Wiggins','Kahn','Flanders','Cook','Kohli','OConnor','Juluru','Houshmand','Tejani','Duvvuri','Weintraub','Triana','Dhanaliwala','Schmidt','Hussain','Carr','Khan','Knox']
 
 def killCtp():
     os.system("kill -9 `ps fax | grep -v 'grep' | grep CTP | head -n1 | cut -f2,3 -d' '`")
@@ -49,12 +52,13 @@ if __name__ == '__main__':
     # Step 2: Replace CTP's anonymization script
     os.system(f"cp {os.getcwd()}/anonymizer.xml {ctpPath}/scripts/DicomAnonymizer.script")
     scriptFile = open(f"{ctpPath}/scripts/DicomAnonymizer.script", mode='r+')
-    now = datetime.datetime.now().strftime("%m%d%H%M%S")
+    now = datetime.datetime.now().strftime("%d%H%M%S")
+    last_name = random.choice(LAST_NAMES)
     anonScript = scriptFile.read()
     anonScript = anonScript.replace("{UID_POSTFIX}", now)
     anonScript = anonScript.replace("{STUDY_ACCESSION}", f"acn{now}")
     anonScript = anonScript.replace("{PATIENT_MRN}", f"mrn{now}")
-    anonScript = anonScript.replace("{PATIENT_NAME}", f"STUDY^FRANK^{now}")
+    anonScript = anonScript.replace("{PATIENT_NAME}", f"{last_name}^FRANK")
     anonScript = anonScript.replace("{TEAM_NAME}", team)
     scriptFile.seek(0)
     scriptFile.write(anonScript)
