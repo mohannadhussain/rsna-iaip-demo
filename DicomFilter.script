@@ -1,0 +1,3 @@
+//True = means passes for processing, False = quarantine
+// Remove any modality = Other OR Structured Report OR secondary capture OR Presentation State (aka GSPS)
+!Modality.equals("OT") * !Modality.equals("SR") * !Modality.equals("SC") * !Modality.equals("PR")

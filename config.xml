@@ -9,6 +9,12 @@
             name="DirectoryImportService"
             quarantine="quarantines/DirectoryImportService"
             root="roots/DirectoryImportService"/>
+        <DicomFilter
+            class="org.rsna.ctp.stdstages.DicomFilter"
+            name="DicomFilter"
+            quarantine="quarantines/DicomFilter"
+            root="roots/DicomFilter"
+            script="scripts/DicomFilter.script"/>
         <DicomAnonymizer
             class="org.rsna.ctp.stdstages.DicomAnonymizer"
             lookupTable="scripts/LookupTable.properties"
