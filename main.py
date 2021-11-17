@@ -61,7 +61,6 @@ if __name__ == '__main__':
     last_name = random.choice(LAST_NAMES)
     anonScript = scriptFile.read()
     anonScript = anonScript.replace("{UID_POSTFIX}", now)
-    anonScript = anonScript.replace("{STUDY_ACCESSION}", f"acn{now}")
     anonScript = anonScript.replace("{PATIENT_MRN}", f"mrn{now}")
     anonScript = anonScript.replace("{PATIENT_NAME}", f"{last_name}^Frank")
     anonScript = anonScript.replace("{TEAM_NAME}", team)
