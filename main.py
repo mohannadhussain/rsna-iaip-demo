@@ -77,7 +77,7 @@ if __name__ == '__main__':
     # Step 4: Copy DICOM to CTP's input directory, then wait for processing to happen
     os.system(f"cp -r {dicomIn}/* {ctpPath}/roots/DirectoryImportService/import/")
     print('Copied DICOM to CTP', flush=True)
-    time.sleep(100) #TODO This might be need to be bumped up on slower machines
+    time.sleep(180) #TODO This might be need to be bumped up on slower machines
 
     # Step 5: C-STORE anonymized copy to the given destinations for this configuration
     print('About to start C-STORing anonymized DICOM', flush=True)

@@ -1018,7 +1018,7 @@
  <e en="T" t="00540016" n="RadiopharmaceuticalInformationSeq">@always()@process()</e>
  <e en="T" t="00603000" n="OverlayData">@remove()</e>
  <e en="T" t="00604000" n="OverlayComments">@remove()</e>
- <e en="T" t="00700001" n="GraphicAnnotationSequence">@remove()</e>
+ <e en="T" t="00700001" n="GraphicAnnotationSequence">@keep()</e>
  <e en="T" t="00700084" n="ContentCreatorsName">@empty()</e>
  <e en="T" t="00700086" n="ContentCreatorsIdCodeSeq">@remove()</e>
  <e en="T" t="0070031a" n="FiducialUID">@hashuid(@UIDROOT,this)</e>
