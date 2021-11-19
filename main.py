@@ -57,7 +57,7 @@ if __name__ == '__main__':
     # Step 2: Replace CTP's anonymization script
     os.system(f"cp {os.getcwd()}/anonymizer.xml {ctpPath}/scripts/DicomAnonymizer.script")
     scriptFile = open(f"{ctpPath}/scripts/DicomAnonymizer.script", mode='r+')
-    now = datetime.datetime.now().strftime("%d%H%M%S")
+    now = datetime.datetime.now().strftime("%d%H%M%S").strip('0') # Remove the leading zero (makes for illegal UIDs)
     last_name = random.choice(LAST_NAMES)
     anonScript = scriptFile.read()
     anonScript = anonScript.replace("{UID_POSTFIX}", now)
