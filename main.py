@@ -16,7 +16,7 @@ STOW_DEST = {'curie': [{'name':'localhost','url':'http://localhost:8042/dicom-we
 LAST_NAMES = ['Harrold','Green','Brown','James','Steel','Bond','Jones','Connor','Willams','Hortons','Park','Frederik','Singh','Patel','Hawk','Smith','Stephenson','Lewis','Nicholls','Howard','Grant','Liu','Victor','McDonald','Lamb','Young','Ali','Chan','Thompson','Morgan','Campbell','Noble','Bell']
 
 def killCtp():
-    os.system("kill -9 `ps fax | grep -v 'grep' | grep CTP | head -n1 | cut -f2,3 -d' '`")
+    os.system("kill -9 `ps fax | grep -v 'grep' | grep CTP | head -n1 | cut -f2,3,4 -d' '`")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Manipulate CTP (Clinical Trials Processor) to generate a new copy of a given study')
