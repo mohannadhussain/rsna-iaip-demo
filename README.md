@@ -1,5 +1,5 @@
-# 2021 RSNA Imaging AI in Practice Demo
-This repository contains scripts to generate new studies throughout the day for the demos
+# RSNA Imaging AI in Practice Demo
+This repository contains scripts to generate new studies throughout the day for the demos. There is a branch corresponding to the configuration used in every year of the demo.
 
 ## Dependencies
 * Python 3
