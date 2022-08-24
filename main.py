@@ -4,14 +4,12 @@ from os import path
 
 STORESCU_PATH = '~/Apps/dcm4che-5.23.2/bin/storescu'
 STOWRS_PATH = '~/Apps/dcm4che-5.23.2/bin/stowrs'
-DICOM_DEST = {'curie': [{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
-              'hounsfield':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
-              'rontgen':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
-              'prequel':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':True}]}
-STOW_DEST = {'curie': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
-             'hounsfield': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
-             'rontgen': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
-             'prequel': []}
+DICOM_DEST = {'dotter': [{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
+              'fleischner':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
+              'mansfield':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}]}
+STOW_DEST = {'dotter': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
+             'fleischner': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
+             'mansfield': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}]}
 
 LAST_NAMES = ['Harrold','Green','Brown','James','Steel','Bond','Jones','Connor','Willams','Hortons','Park','Frederik','Singh','Patel','Hawk','Smith','Stephenson','Lewis','Nicholls','Howard','Grant','Liu','Victor','McDonald','Lamb','Young','Ali','Chan','Thompson','Morgan','Campbell','Noble','Bell']
 
@@ -47,6 +45,10 @@ if __name__ == '__main__':
     dicomDestinations = DICOM_DEST[team]
     stowDestinations = STOW_DEST[team]
 
+    first_name = "Frank"
+    if team == "mansfield":
+        first_name = "Francine"
+
     # Step 1: Kill CTP in case it is running and clean up its directories
     killCtp()
     time.sleep(5)
@@ -63,7 +65,7 @@ if __name__ == '__main__':
     anonScript = anonScript.replace("{UID_POSTFIX}", now)
     anonScript = anonScript.replace("{ACCESSION_PREFIX}", f"{now}")
     anonScript = anonScript.replace("{PATIENT_MRN}", f"mrn{now}")
-    anonScript = anonScript.replace("{PATIENT_NAME}", f"{last_name}^Frank")
+    anonScript = anonScript.replace("{PATIENT_NAME}", f"{last_name}^{first_name}")
     anonScript = anonScript.replace("{TEAM_NAME}", team)
     scriptFile.seek(0)
     scriptFile.write(anonScript)
