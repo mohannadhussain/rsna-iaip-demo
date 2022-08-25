@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     ctpPath = args.ctp
     dicomIn = args.dicom
-    team = args.team
+    team = str(args.team).lower()
     log_directory = args.logdir
     dicomDestinations = DICOM_DEST[team]
     stowDestinations = STOW_DEST[team]

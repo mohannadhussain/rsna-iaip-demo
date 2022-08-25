@@ -11,16 +11,9 @@ This repository contains scripts to generate new studies throughout the day for 
 
 ## Example commands for the RSNA IAIP 2022 Demo
 ```buildoutcfg
-python3 main.py -c ~/Apps/ctp -t dotter -d ~/Downloads/IAIP/Originals/Dotter-BrainMR-Hyperfine/ -l "./logs"
-python3 main.py -c ~/Apps/ctp -t dotter -d ~/Downloads/IAIP/Originals/Dotter-BrainMR-Siemens/ -l "./logs"
-python3 main.py -c ~/Apps/ctp -t dotter -d ~/Downloads/IAIP/Originals/Dotter-ChestXR/ -l "./logs"
-python3 main.py -c ~/Apps/ctp -t dotter -d ~/Downloads/IAIP/Originals/Dotter-LungCT/ -l "./logs"
+python3 main.py -c ~/Apps/ctp -t dotter -d ~/path-to-one-or-more-studies/ -l "./logs"
 
-python3 main.py -c ~/Apps/ctp -t fleischner -d ~/Downloads/IAIP/Originals/Fleischner-ChestXR/ -l "./logs"
-python3 main.py -c ~/Apps/ctp -t fleischner -d ~/Downloads/IAIP/Originals/Fleischner-ChestCT/ -l "./logs"
-python3 main.py -c ~/Apps/ctp -t fleischner -d ~/Downloads/IAIP/Originals/Fleischner-ProstateMR/ -l "./logs"
+python3 main.py -c ~/Apps/ctp -t fleischner -d ~/path-to-one-or-more-studies/ -l "./logs"
 
-python3 main.py -c ~/Apps/ctp -t mansfield -d ~/Downloads/IAIP/Originals/Mansfield-BrainCT/ -l "./logs"
-python3 main.py -c ~/Apps/ctp -t mansfield -d ~/Downloads/IAIP/Originals/Mansfield-ChestXR/ -l "./logs"
-python3 main.py -c ~/Apps/ctp -t mansfield -d ~/Downloads/IAIP/Originals/Mansfield-Mammo/ -l "./logs"
+python3 main.py -c ~/Apps/ctp -t mansfield -d ~/path-to-one-or-more-studies/ -l "./logs"
 ```
