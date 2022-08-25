@@ -61,16 +61,19 @@ if __name__ == '__main__':
     scriptFile = open(f"{ctpPath}/scripts/DicomAnonymizer.script", mode='r+')
     now = datetime.datetime.now().strftime("%d%H%M%S").strip('0') # Remove the leading zero (makes for illegal UIDs)
     last_name = random.choice(LAST_NAMES)
+    patient_name = f"{last_name}^{first_name}"
     anonScript = scriptFile.read()
     anonScript = anonScript.replace("{UID_POSTFIX}", now)
     anonScript = anonScript.replace("{ACCESSION_PREFIX}", f"{now}")
     anonScript = anonScript.replace("{PATIENT_MRN}", f"mrn{now}")
-    anonScript = anonScript.replace("{PATIENT_NAME}", f"{last_name}^{first_name}")
+    anonScript = anonScript.replace("{PATIENT_NAME}", patient_name)
     anonScript = anonScript.replace("{TEAM_NAME}", team)
     scriptFile.seek(0)
     scriptFile.write(anonScript)
     scriptFile.truncate()
     scriptFile.close()
+
+    print(f"======= Patient name is {patient_name}")
 
     # Step 3: Start CTP
     os.system(f"cd {ctpPath}; java -jar Runner.jar &")
