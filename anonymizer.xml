@@ -1,17 +1,18 @@
 <script>
  <p t="DATEINC">0</p>
  <p t="PROFILENAME">CTP Clinical Trial Default</p>
- <p t="PROJECTNAME">Imaging AI in Practice 2021</p>
+ <p t="PROJECTNAME">Imaging AI in Practice 2022</p>
  <p t="SITENAME">RSNA</p>
  <p t="SITEID">1</p>
  <p t="TRIALNAME">{TEAM_NAME}</p>
  <p t="SUBJECT">Subject</p>
  <p t="PATIENT_NAME">{PATIENT_NAME}</p>
  <p t="PATIENT_MRN">{PATIENT_MRN}</p>
+ <p t="PATIENT_SEX">{PATIENT_SEX}</p>
  <p t="ACCESSION_PREFIX">{ACCESSION_PREFIX}</p>
  <p t="PATIENT_DOB">19600101</p>
- <p t="UIDROOT">2.2021.7762.4247.{UID_POSTFIX}</p>
- <p t="ISSUER_UID">2.2021.7762.4247.123456789.987654321</p>
+ <p t="UIDROOT">2.2022.7762.4247.{UID_POSTFIX}</p>
+ <p t="ISSUER_UID">2.2022.7762.4247.123456789.987654321</p>
  <e en="T" t="00080005" n="SpecificCharacterSet">@keep()</e>
  <e en="F" t="00080008" n="ImageType"></e>
  <e en="T" t="00080012" n="InstanceCreationDate">@date()</e>
@@ -139,7 +140,7 @@
  <e en="T" t="00100021" n="IssuerOfPatientID">@always()@param(@ISSUER_UID)</e>
  <e en="T" t="00100030" n="PatientBirthDate">@always()@param(@PATIENT_DOB)</e>
  <e en="T" t="00100032" n="PatientBirthTime">@remove()</e>
- <e en="T" t="00100040" n="PatientSex">@keep()</e>
+ <e en="T" t="00100040" n="PatientSex">@always()@param(@PATIENT_SEX)</e>
  <e en="T" t="00100050" n="PatientInsurancePlanCodeSeq">@remove()</e>
  <e en="T" t="00100101" n="PatientPrimaryLanguageCodeSeq">@remove()</e>
  <e en="T" t="00100102" n="PatientPrimaryLanguageModifierCodeSeq">@remove()</e>

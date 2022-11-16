@@ -11,10 +11,19 @@ STOW_DEST = {'dotter': [{'name':'localhost','url':'http://localhost:8042/dicom-w
              'fleischner': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
              'mansfield': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}]}
 
-LAST_NAMES = ['Harrold','Green','Brown','James','Steel','Bond','Jones','Connor','Willams','Hortons','Park','Frederik','Singh','Patel','Hawk','Smith','Stephenson','Lewis','Nicholls','Howard','Grant','Liu','Victor','McDonald','Lamb','Young','Ali','Chan','Thompson','Morgan','Campbell','Noble','Bell']
+
+LAST_NAMES = ['Harrold','Green','Brown','James','Steel','Bond','Jones','Connor','Williams','Hortons','Park','Frederik','Singh','Patel','Hawk','Smith','Stephenson','Lewis','Nicholls','Howard','Grant','Liu','Victor','McDonald','Lamb','Young','Ali','Chan','Thompson','Morgan','Campbell','Noble','Bell']
 
 def killCtp():
     os.system("kill -9 `ps fax | grep -v 'grep' | grep CTP | head -n1 | cut -f2,3,4 -d' '`")
+
+
+def countFiles(dir_path):
+    count = 0
+    for root_dir, cur_dir, files in os.walk(dir_path):
+        count += len(files)
+    return count
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Manipulate CTP (Clinical Trials Processor) to generate a new copy of a given study')
@@ -41,13 +50,20 @@ if __name__ == '__main__':
     ctpPath = args.ctp
     dicomIn = args.dicom
     team = str(args.team).lower()
+    institution = team
     log_directory = args.logdir
     dicomDestinations = DICOM_DEST[team]
     stowDestinations = STOW_DEST[team]
+    patient_sex = "M"
 
     first_name = "Frank"
     if team == "mansfield":
         first_name = "Francine"
+        patient_sex = "F"
+    if team == "dotter-hyperfine":
+        first_name = "Joan"
+        patient_sex = "F"
+        institution = 'dotter'
 
     # Step 1: Kill CTP in case it is running and clean up its directories
     killCtp()
@@ -66,8 +82,9 @@ if __name__ == '__main__':
     anonScript = anonScript.replace("{UID_POSTFIX}", now)
     anonScript = anonScript.replace("{ACCESSION_PREFIX}", f"{now}")
     anonScript = anonScript.replace("{PATIENT_MRN}", f"mrn{now}")
+    anonScript = anonScript.replace("{PATIENT_SEX}", patient_sex)
     anonScript = anonScript.replace("{PATIENT_NAME}", patient_name)
-    anonScript = anonScript.replace("{TEAM_NAME}", team)
+    anonScript = anonScript.replace("{TEAM_NAME}", institution)
     scriptFile.seek(0)
     scriptFile.write(anonScript)
     scriptFile.truncate()
@@ -83,7 +100,14 @@ if __name__ == '__main__':
     # Step 4: Copy DICOM to CTP's input directory, then wait for processing to happen
     os.system(f"cp -r {dicomIn}/* {ctpPath}/roots/DirectoryImportService/import/")
     print('Copied DICOM to CTP', flush=True)
-    time.sleep(180) #TODO This might be need to be bumped up on slower machines
+    last_count = -1
+    while( True ):
+        time.sleep(10)
+        current_count = countFiles(f'{ctpPath}/roots/FileStorageService/__default/')
+        if current_count == last_count: # CTP is no longer generating new files, i.e. it is finished
+            break
+        elif current_count > 0: # CTP is still working, sleep again and try in a bit
+            last_count = current_count
 
     # Step 5: C-STORE anonymized copy to the given destinations for this configuration
     print('About to start C-STORing anonymized DICOM', flush=True)
@@ -100,7 +124,8 @@ if __name__ == '__main__':
     # Step 6: STOW anonymized copy to destinations that do not support C-STORE
     print('About to start STOWing anonymized DICOM', flush=True)
     for dest in stowDestinations:
-        cmd = f"{STOWRS_PATH} --url '{dest['url']}' {ctpPath}/roots/FileStorageService/__default/ -a json -t json >> {log_directory}/stowrs-{dest['name']}-{now}.log 2>&1 &"
+        extra_stuff = "\\{\\} \\;"
+        cmd = f"find {ctpPath}/roots/FileStorageService/__default/ -name '*.dcm' -exec {STOWRS_PATH} --url '{dest['url']}' -a json -t json {extra_stuff} >> {log_directory}/stowrs-{dest['name']}-{now}.log 2>&1 &"
         print(cmd, flush=True)
         os.system(cmd)
     print('Done with STOWs', flush=True)

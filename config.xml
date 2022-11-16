@@ -2,7 +2,7 @@
     <Server
         maxThreads="20"
         port="8080"/>
-    <Pipeline name="RSNA IAIP DEMO 2021">
+    <Pipeline name="RSNA IAIP DEMO 2022">
         <DirectoryImportService
             class="org.rsna.ctp.stdstages.DirectoryImportService"
             import="roots/DirectoryImportService/import"
