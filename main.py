@@ -4,6 +4,7 @@ from os import path
 
 STORESCU_PATH = '~/Apps/dcm4che-5.23.2/bin/storescu'
 STOWRS_PATH = '~/Apps/dcm4che-5.23.2/bin/stowrs'
+
 DICOM_DEST = {'dotter': [{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
               'fleischner':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
               'mansfield':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}]}
@@ -31,6 +32,7 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--ctp', type=str, nargs='?', required=True, help="Path to directory containing CTP")
     parser.add_argument('-t', '--team', type=str, nargs='?', required=True, help="Team name (controls which destinations to send to)")
     parser.add_argument('-l', '--logdir', type=str, nargs='?', required=True, default=".", help="Directory path used for log output")
+    parser.add_argument('-g', '--generateonly', type=bool, nargs='?', required=False, default=False, help="Only generate DICOM files and do NOT send them (no C-STORE, no STOW)")
     args = parser.parse_args()
 
     # Perform some basic error checking
@@ -109,26 +111,27 @@ if __name__ == '__main__':
         elif current_count > 0: # CTP is still working, sleep again and try in a bit
             last_count = current_count
 
-    # Step 5: C-STORE anonymized copy to the given destinations for this configuration
-    print('About to start C-STORing anonymized DICOM', flush=True)
-    for dest in dicomDestinations:
-        params = ""
-        if( 'headerOnly' in dest and dest['headerOnly'] == True ):
-            params = "-s 7fe00010="
-        cmd = f"{STORESCU_PATH} -b DEMOTOOL -c {dest['aet']}@{dest['host']}:{dest['port']} {ctpPath}/roots/FileStorageService/__default/* {params} >> {log_directory}/storescu-{dest['aet']}-{now}.log 2>&1 &"
-        print(cmd, flush=True)
-        os.system(cmd)
+    if args.generateonly is not True:
+        # Step 5: C-STORE anonymized copy to the given destinations for this configuration
+        print('About to start C-STORing anonymized DICOM', flush=True)
+        for dest in dicomDestinations:
+            params = ""
+            if( 'headerOnly' in dest and dest['headerOnly'] == True ):
+                params = "-s 7fe00010="
+            cmd = f"{STORESCU_PATH} -b DEMOTOOL -c {dest['aet']}@{dest['host']}:{dest['port']} {ctpPath}/roots/FileStorageService/__default/* {params} >> {log_directory}/storescu-{dest['aet']}-{now}.log 2>&1 &"
+            print(cmd, flush=True)
+            os.system(cmd)
 
-    print('Done with C-STOREs', flush=True)
+        print('Done with C-STOREs', flush=True)
 
-    # Step 6: STOW anonymized copy to destinations that do not support C-STORE
-    print('About to start STOWing anonymized DICOM', flush=True)
-    for dest in stowDestinations:
-        extra_stuff = "\\{\\} \\;"
-        cmd = f"find {ctpPath}/roots/FileStorageService/__default/ -name '*.dcm' -exec {STOWRS_PATH} --url '{dest['url']}' -a json -t json {extra_stuff} >> {log_directory}/stowrs-{dest['name']}-{now}.log 2>&1 &"
-        print(cmd, flush=True)
-        os.system(cmd)
-    print('Done with STOWs', flush=True)
+        # Step 6: STOW anonymized copy to destinations that do not support C-STORE
+        print('About to start STOWing anonymized DICOM', flush=True)
+        for dest in stowDestinations:
+            extra_stuff = "\\{\\} \\;"
+            cmd = f"find {ctpPath}/roots/FileStorageService/__default/ -name '*.dcm' -exec {STOWRS_PATH} --url '{dest['url']}' -a json -t json {extra_stuff} >> {log_directory}/stowrs-{dest['name']}-{now}.log 2>&1 &"
+            print(cmd, flush=True)
+            os.system(cmd)
+        print('Done with STOWs', flush=True)
 
     # Kill CTP as a just-in-case
     killCtp()
