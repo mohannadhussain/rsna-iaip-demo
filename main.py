@@ -5,12 +5,12 @@ from os import path
 STORESCU_PATH = '~/Apps/dcm4che-5.23.2/bin/storescu'
 STOWRS_PATH = '~/Apps/dcm4che-5.23.2/bin/stowrs'
 
-DICOM_DEST = {'dotter': [{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
-              'fleischner':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
-              'mansfield':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}]}
-STOW_DEST = {'dotter': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
-             'fleischner': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
-             'mansfield': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}]}
+DICOM_DEST = {'bucky': [{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
+              'mallard':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
+              'jensen':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}]}
+STOW_DEST = {'bucky': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
+             'mallard': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
+             'jensen': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}]}
 
 
 LAST_NAMES = ['Harrold','Green','Brown','James','Steel','Bond','Jones','Connor','Williams','Hortons','Park','Frederik','Singh','Patel','Hawk','Smith','Stephenson','Lewis','Nicholls','Howard','Grant','Liu','Victor','McDonald','Lamb','Young','Ali','Chan','Thompson','Morgan','Campbell','Noble','Bell']
@@ -59,13 +59,13 @@ if __name__ == '__main__':
     patient_sex = "M"
 
     first_name = "Frank"
-    if team == "mansfield":
+    if team == "jensen":
         first_name = "Francine"
         patient_sex = "F"
-    if team == "dotter-hyperfine":
+    if team == "bucky-hyperfine":
         first_name = "Joan"
         patient_sex = "F"
-        institution = 'dotter'
+        institution = 'bucky'
 
     # Step 1: Kill CTP in case it is running and clean up its directories
     killCtp()
