@@ -654,13 +654,13 @@
  <e en="F" t="00200026" n="LUTNumber"></e>
  <e en="F" t="00200032" n="ImagePosition"></e>
  <e en="F" t="00200037" n="ImageOrientation"></e>
- <e en="T" t="00200052" n="FrameOfReferenceUID">@hashuid(@UIDROOT,this)</e>
+ <e en="T" t="00200052" n="FrameOfReferenceUID">@keep()</e>
  <e en="F" t="00200060" n="Laterality"></e>
  <e en="F" t="00200062" n="ImageLaterality"></e>
  <e en="F" t="00200100" n="TemporalPositionIdentifier"></e>
  <e en="F" t="00200105" n="NumberOfTemporalPositions"></e>
  <e en="F" t="00200110" n="TemporalResolution"></e>
- <e en="T" t="00200200" n="SynchronizationFrameOfReferenceUID">@hashuid(@UIDROOT,this)</e>
+ <e en="T" t="00200200" n="SynchronizationFrameOfReferenceUID">@keep()</e>
  <e en="F" t="00201000" n="SeriesInStudy"></e>
  <e en="F" t="00201002" n="ImagesInAcquisition"></e>
  <e en="F" t="00201004" n="AcquisitionsInStudy"></e>
