@@ -10,8 +10,8 @@ This repository contains scripts to generate new studies throughout the day for 
 ```python main.py -d [PATH TO DICOM FILES] -c [PATH TO CTP] -t [TEAM NAME: bucky, mallard or jensen]```
 
 ### Optional Flags
-  * `-nd` If specified, generate new study demographics (vs load existing ones from a JSON file)
-  * `-g` If specified, only generate DICOM files and do NOT send them (no C-STORE, no STOW)
+  * `-nd=true` If specified, generate new study demographics (vs load existing ones from a JSON file)
+  * `-g=true` If specified, only generate DICOM files and do NOT send them (no C-STORE, no STOW)
 
 ## Example commands for the RSNA IAIP 2023 Demo
 
