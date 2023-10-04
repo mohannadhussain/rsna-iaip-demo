@@ -1,3 +1,4 @@
 //True = means passes for processing, False = quarantine
-// Remove any modality = Other OR Structured Report OR secondary capture
-!Modality.equals("OT") * !Modality.equals("SR") * !Modality.equals("SC") * !Modality.equals("PR") * !Modality.equals("DOC")
+// Remove any modality = Other OR secondary capture
+// Structured Report is NO longer removed here - there's a separate script for that now
+!Modality.equals("OT") * !Modality.equals("SC") * !Modality.equals("PR") * !Modality.equals("DOC")
