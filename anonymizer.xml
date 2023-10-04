@@ -1,7 +1,7 @@
 <script>
  <p t="DATEINC">0</p>
  <p t="PROFILENAME">CTP Clinical Trial Default</p>
- <p t="PROJECTNAME">Imaging AI in Practice 2022</p>
+ <p t="PROJECTNAME">Imaging AI in Practice 2023</p>
  <p t="SITENAME">RSNA</p>
  <p t="SITEID">1</p>
  <p t="TRIALNAME">{TEAM_NAME}</p>
@@ -1061,6 +1061,11 @@
  <e en="T" t="40084000" n="ResultComments">@remove()</e>
  <e en="T" t="fffafffa" n="DigitalSignaturesSeq">@remove()</e>
  <e en="T" t="fffcfffc" n="DataSetTrailingPadding">@remove()</e>
+
+ <e en="T" t="0040a730" n="ContentSequence">@process()</e>
+ <e en="T" t="00081199" n="ReferencedSOPSequence">@process()</e>
+ <e en="T" t="00081155" n="ReferencedSOPInstanceUID">@hashuid(@UIDROOT,this)</e>
+
  <k en="F" t="0018">Keep group 0018</k>
  <k en="F" t="0020">Keep group 0020</k>
  <k en="F" t="0028">Keep group 0028</k>
