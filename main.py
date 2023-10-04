@@ -1,5 +1,7 @@
+import json
 import random
 import sys, argparse, os.path, time, datetime
+import traceback
 from os import path
 
 STORESCU_PATH = '~/Apps/dcm4che-5.23.2/bin/storescu'
@@ -15,8 +17,10 @@ STOW_DEST = {'bucky': [{'name':'localhost','url':'http://localhost:8042/dicom-we
 
 LAST_NAMES = ['Harrold','Green','Brown','James','Steel','Bond','Jones','Connor','Williams','Hortons','Park','Frederik','Singh','Patel','Hawk','Smith','Stephenson','Lewis','Nicholls','Howard','Grant','Liu','Victor','McDonald','Lamb','Young','Ali','Chan','Thompson','Morgan','Campbell','Noble','Bell']
 
+DEMOGRAPHICS_FILE = './demographics.json'
+
 def killCtp():
-    os.system("kill -9 `ps fax | grep -v 'grep' | grep CTP | head -n1 | sed 's/^ *//g' | cut -f 1 -d ' '")
+    os.system("kill -9 `ps fax | grep -v 'grep' | grep CTP | head -n1 | sed 's/^ *//g' | cut -f 1 -d ' '`")
 
 
 def countFiles(dir_path):
@@ -32,6 +36,7 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--ctp', type=str, nargs='?', required=True, help="Path to directory containing CTP")
     parser.add_argument('-t', '--team', type=str, nargs='?', required=True, help="Team name (controls which destinations to send to)")
     parser.add_argument('-l', '--logdir', type=str, nargs='?', required=True, default=".", help="Directory path used for log output")
+    parser.add_argument('-nd', '--newdemographics', type=bool, nargs='?', required=False, default=False, help="Whether to generate new study demographics, or load existing ones from a JSON file")
     parser.add_argument('-g', '--generateonly', type=bool, nargs='?', required=False, default=False, help="Only generate DICOM files and do NOT send them (no C-STORE, no STOW)")
     args = parser.parse_args()
 
@@ -56,16 +61,46 @@ if __name__ == '__main__':
     log_directory = args.logdir
     dicomDestinations = DICOM_DEST[team]
     stowDestinations = STOW_DEST[team]
-    patient_sex = "M"
 
-    first_name = "Frank"
-    if team == "jensen":
-        first_name = "Francine"
-        patient_sex = "F"
-    if team == "bucky-hyperfine":
-        first_name = "Joan"
-        patient_sex = "F"
-        institution = 'bucky'
+    now = None
+    patient_name = None
+    patient_sex = None
+
+    try:
+        if args.newdemographics:
+            print("Generating NEW demographics", flush=True)
+            patient_sex = "M"
+
+            first_name = "Frank"
+            if team == "jensen":
+                first_name = "Francine"
+                patient_sex = "F"
+            if team == "bucky-hyperfine":
+                first_name = "Joan"
+                patient_sex = "F"
+                institution = 'bucky'
+
+            now = datetime.datetime.now().strftime("%d%H%M%S").strip(
+                '0')  # Remove the leading zero (makes for illegal UIDs)
+            last_name = random.choice(LAST_NAMES)
+            patient_name = f"{last_name}^{first_name}"
+
+            # Save to file
+            demo_data = {'now': now, 'patient_name': patient_name, 'patient_sex': patient_sex, 'institution': institution}
+            with open(DEMOGRAPHICS_FILE, 'w') as demo_file:
+                demo_file.write(json.dumps(demo_data, indent=2))
+        else:
+            print("Reusing EXISTING demographics", flush=True)
+            demo_data = json.load(open(DEMOGRAPHICS_FILE))
+            now = demo_data['now']
+            patient_name = demo_data['patient_name']
+            patient_sex = demo_data['patient_sex']
+            institution = demo_data['institution']
+
+    except:
+        print("Caught exception while tring to read/write demographics from a file", flush=True)
+        traceback.print_exc()
+        exit()
 
     # Step 1: Kill CTP in case it is running and clean up its directories
     killCtp()
@@ -77,13 +112,11 @@ if __name__ == '__main__':
     # Step 2: Replace CTP's anonymization script
     os.system(f"cp {os.getcwd()}/anonymizer.xml {ctpPath}/scripts/DicomAnonymizer.script")
     scriptFile = open(f"{ctpPath}/scripts/DicomAnonymizer.script", mode='r+')
-    now = datetime.datetime.now().strftime("%d%H%M%S").strip('0') # Remove the leading zero (makes for illegal UIDs)
-    last_name = random.choice(LAST_NAMES)
-    patient_name = f"{last_name}^{first_name}"
+    patient_mrn = f"mrn{now}"
     anonScript = scriptFile.read()
     anonScript = anonScript.replace("{UID_POSTFIX}", now)
     anonScript = anonScript.replace("{ACCESSION_PREFIX}", f"{now}")
-    anonScript = anonScript.replace("{PATIENT_MRN}", f"mrn{now}")
+    anonScript = anonScript.replace("{PATIENT_MRN}", patient_mrn)
     anonScript = anonScript.replace("{PATIENT_SEX}", patient_sex)
     anonScript = anonScript.replace("{PATIENT_NAME}", patient_name)
     anonScript = anonScript.replace("{TEAM_NAME}", institution)
@@ -92,7 +125,7 @@ if __name__ == '__main__':
     scriptFile.truncate()
     scriptFile.close()
 
-    print(f"======= Patient name is {patient_name}")
+    print(f"======= Patient name is {patient_name}, MRN is {patient_mrn}")
 
     # Step 3: Start CTP
     os.system(f"cd {ctpPath}; java -jar Runner.jar &")
