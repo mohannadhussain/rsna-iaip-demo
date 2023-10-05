@@ -1,4 +1,4 @@
-import json, random, sys, argparse, os.path, time, datetime
+import json, random, sys, argparse, os.path, time, datetime, traceback
 from os import path
 
 STORESCU_PATH = '~/Apps/dcm4che-5.23.2/bin/storescu'
