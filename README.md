@@ -29,3 +29,4 @@ python delete-srs.py -d ~/path-to-one-or-more-studies/
 ### 2023
   * Added the ability to choose whether to generate new demographics or re-use existing ones. Allows for simulating of sending prior studies for the same patient (i.e. comparisons)
   * Added script to clean up SR files vs. outright filtering them out at the CTP level (was being done to ensure AI results samples were not sent with the generated study but rather by the AI model). The change allows to clean up the datasets selectively, because for certian modalities like Ultrasound, we need the SR measurements.   
+  * Added a PHP webpage `index.php` that would allow a "self-serve" option to generate studies on demand... Warning: super hacky!!
