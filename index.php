@@ -11,9 +11,9 @@ set_time_limit(300);
 ini_set('max_execution_time', '300');
 
 
-$DIR_PYTHON = '/home/mh/rsna-iaip-demo/';
-$DIR_DATA = '/home/mh/iaip-2023-data-samples/';
-$DIR_CTP = '/home/mh/apps/ctp';
+$DIR_PYTHON = '/rsna-iaip/rsna-iaip-demo/';
+$DIR_DATA = '/rsna-iaip/iaip-2023-data-samples/';
+$DIR_CTP = '/rsna-iaip/apps/ctp';
 $TEAMS = [
     0 => ['name'=>'bucky', 'label'=>'Bucky (except Hyperfine)'],
     1 => ['name'=>'bucky-hyperfine', 'label'=>'Bucky (only hyperfine)'],
@@ -73,7 +73,7 @@ $TEAMS = [
             flush();
 
             // Kick off the generator
-            $cmd = "cd {$DIR_PYTHON}; sudo python main.py -c {$DIR_CTP} -t {$team['name']} -l './logs' -d {$DIR_DATA}{$team['name']} -nd True";
+            $cmd = "cd {$DIR_PYTHON}; python main.py -c {$DIR_CTP} -t {$team['name']} -l './logs' -d {$DIR_DATA}{$team['name']} -nd True";
             //echo "{$cmd}<br />\n";
 
             $output = shell_exec($cmd);
