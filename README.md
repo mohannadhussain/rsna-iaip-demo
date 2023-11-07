@@ -12,6 +12,7 @@ This repository contains scripts to generate new studies throughout the day for 
 ### Optional Flags
   * `-nd=true` If specified, generate new study demographics (vs load existing ones from a JSON file)
   * `-g=true` If specified, only generate DICOM files and do NOT send them (no C-STORE, no STOW)
+  * `-m=9` If specified generated DICOM files will have a date of 9 months ago, instead of today's today
 
 ## Example commands for the RSNA IAIP 2023 Demo
 
@@ -21,12 +22,27 @@ python main.py -c ~/Apps/ctp -t bucky -l "./logs -d ~/path-to-one-or-more-studie
 python main.py -c ~/Apps/ctp -t mallard -l "./logs -d ~/path-to-one-or-more-studies/
 
 python main.py -c ~/Apps/ctp -t jensen -l "./logs -d ~/path-to-one-or-more-studies/
+```
 
-# Clean up SRs
+### # Clean up SRs
+```
 python delete-srs.py -d ~/path-to-one-or-more-studies/
 ```
+
+### Examples for priors and currents
+Step 1: Prior study
+```commandline
+python main.py -c ~/Apps/ctp -t bucky-john -l "./logs" -d /home/mhussain/projects/rsna/rsna-iaip-demo/W_Chest_PA_3172/ -nd True -m 9
+```
+
+Step 2: Current study
+```commandline
+python main.py -c ~/Apps/ctp -t bucky-john -l "./logs" -d /home/mhussain/projects/rsna/rsna-iaip-demo/W_Chest_PA_3172/
+```
+
 ## Change Log
 ### 2023
   * Added the ability to choose whether to generate new demographics or re-use existing ones. Allows for simulating of sending prior studies for the same patient (i.e. comparisons)
+  * Added the option for the months offset to generate priors for a patient
   * Added script to clean up SR files vs. outright filtering them out at the CTP level (was being done to ensure AI results samples were not sent with the generated study but rather by the AI model). The change allows to clean up the datasets selectively, because for certian modalities like Ultrasound, we need the SR measurements.   
   * Added a PHP webpage `index.php` that would allow a "self-serve" option to generate studies on demand... Warning: super hacky!!

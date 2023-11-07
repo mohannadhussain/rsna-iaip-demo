@@ -10,22 +10,23 @@
  <p t="PATIENT_MRN">{PATIENT_MRN}</p>
  <p t="PATIENT_SEX">{PATIENT_SEX}</p>
  <p t="ACCESSION_PREFIX">{ACCESSION_PREFIX}</p>
+ <p t="STUDY_DATE">{STUDY_DATE}</p>
  <p t="PATIENT_DOB">19600101</p>
  <p t="UIDROOT">2.2022.7762.4247.{UID_POSTFIX}</p>
  <p t="ISSUER_UID">2.2022.7762.4247.123456789.987654321</p>
  <e en="T" t="00080005" n="SpecificCharacterSet">@keep()</e>
  <e en="F" t="00080008" n="ImageType"></e>
- <e en="T" t="00080012" n="InstanceCreationDate">@date()</e>
+ <e en="T" t="00080012" n="InstanceCreationDate">@always()@param(@STUDY_DATE)</e>
  <e en="F" t="00080013" n="InstanceCreationTime">@time()</e>
  <e en="T" t="00080014" n="InstanceCreatorUID">@hashuid(@UIDROOT,this)</e>
  <e en="T" t="00080016" n="SOPClassUID">@keep()</e>
  <e en="T" t="00080018" n="SOPInstanceUID">@hashuid(@UIDROOT,this)</e>
- <e en="T" t="00080020" n="StudyDate">@date()</e>
- <e en="T" t="00080021" n="SeriesDate">@date()</e>
- <e en="T" t="00080022" n="AcquisitionDate">@date()</e>
- <e en="T" t="00080023" n="ContentDate">@date()</e>
- <e en="T" t="00080024" n="OverlayDate">@date()</e>
- <e en="T" t="00080025" n="CurveDate">@date()</e>
+ <e en="T" t="00080020" n="StudyDate">@always()@param(@STUDY_DATE)</e>
+ <e en="T" t="00080021" n="SeriesDate">@always()@param(@STUDY_DATE)</e>
+ <e en="T" t="00080022" n="AcquisitionDate">@always()@param(@STUDY_DATE)</e>
+ <e en="T" t="00080023" n="ContentDate">@always()@param(@STUDY_DATE)</e>
+ <e en="T" t="00080024" n="OverlayDate">@always()@param(@STUDY_DATE)</e>
+ <e en="T" t="00080025" n="CurveDate">@always()@param(@STUDY_DATE)</e>
  <e en="T" t="0008002a" n="AcquisitionDatetime">@remove()</e>
  <e en="T" t="00080030" n="StudyTime">@time()</e>
  <e en="T" t="00080031" n="SeriesTime">@time()</e>
@@ -791,18 +792,18 @@
  <e en="T" t="00320033" n="StudyVerifiedTime">@remove()</e>
  <e en="T" t="00320034" n="StudyReadDate">@remove()</e>
  <e en="T" t="00320035" n="StudyReadTime">@remove()</e>
- <e en="T" t="00321000" n="ScheduledStudyStartDate">@date()</e>
+ <e en="T" t="00321000" n="ScheduledStudyStartDate">@always()@param(@STUDY_DATE)</e>
  <e en="T" t="00321001" n="ScheduledStudyStartTime">@time()</e>
- <e en="T" t="00321010" n="ScheduledStudyStopDate">@date()</e>
+ <e en="T" t="00321010" n="ScheduledStudyStopDate">@always()@param(@STUDY_DATE)</e>
  <e en="T" t="00321011" n="ScheduledStudyStopTime">@time()</e>
  <e en="T" t="00321020" n="ScheduledStudyLocation">@remove()</e>
  <e en="T" t="00321021" n="ScheduledStudyLocationAET">@remove()</e>
  <e en="T" t="00321030" n="ReasonforStudy">@remove()</e>
  <e en="T" t="00321032" n="RequestingPhysician">@remove()</e>
  <e en="T" t="00321033" n="RequestingService">@remove()</e>
- <e en="T" t="00321040" n="StudyArrivalDate">@date()</e>
+ <e en="T" t="00321040" n="StudyArrivalDate">@always()@param(@STUDY_DATE)</e>
  <e en="F" t="00321041" n="StudyArrivalTime">@time()</e>
- <e en="T" t="00321050" n="StudyCompletionDate">@date()</e>
+ <e en="T" t="00321050" n="StudyCompletionDate">@always()@param(@STUDY_DATE)</e>
  <e en="F" t="00321051" n="StudyCompletionTime">@time()</e>
  <e en="F" t="00321055" n="StudyComponentStatusID"></e>
  <e en="T" t="00321060" n="RequestedProcedureDescription">@remove()</e>
@@ -819,7 +820,7 @@
  <e en="T" t="0038001c" n="ScheduledDischargeDate">@remove()</e>
  <e en="T" t="0038001d" n="ScheduledDischargeTime">@remove()</e>
  <e en="T" t="0038001e" n="ScheduledPatientInstitutionResidence">@remove()</e>
- <e en="T" t="00380020" n="AdmittingDate">@date()</e>
+ <e en="T" t="00380020" n="AdmittingDate">@always()@param(@STUDY_DATE)</e>
  <e en="T" t="00380021" n="AdmittingTime">@time()</e>
  <e en="T" t="00380030" n="DischargeDate">@remove()</e>
  <e en="T" t="00380032" n="DischargeTime">@remove()</e>
@@ -860,9 +861,9 @@
  <e en="F" t="003a0222" n="NotchFilterFrequency"></e>
  <e en="F" t="003a0223" n="NotchFilterBandwidth"></e>
  <e en="T" t="00400001" n="ScheduledStationAET">@remove()</e>
- <e en="T" t="00400002" n="SPSStartDate">@date()</e>
+ <e en="T" t="00400002" n="SPSStartDate">@always()@param(@STUDY_DATE)</e>
  <e en="T" t="00400003" n="SPSStartTime">@time()</e>
- <e en="T" t="00400004" n="SPSEndDate">@date()</e>
+ <e en="T" t="00400004" n="SPSEndDate">@always()@param(@STUDY_DATE)</e>
  <e en="T" t="00400005" n="SPSEndTime">@time()</e>
  <e en="T" t="00400006" n="ScheduledPerformingPhysicianName">@remove()</e>
  <e en="T" t="00400007" n="SPSDescription">@remove()</e>
@@ -878,10 +879,10 @@
  <e en="T" t="00400241" n="PerformedStationAET">@remove()</e>
  <e en="T" t="00400242" n="PerformedStationName">@remove()</e>
  <e en="T" t="00400243" n="PerformedLocation">@remove()</e>
- <e en="T" t="00400244" n="PPSStartDate">@date()</e>
+ <e en="T" t="00400244" n="PPSStartDate">@always()@param(@STUDY_DATE)</e>
  <e en="T" t="00400245" n="PPSStartTime">@time()</e>
  <e en="F" t="00400248" n="PerformedStationNameCodeSeq"></e>
- <e en="T" t="00400250" n="PPSEndDate">@date()</e>
+ <e en="T" t="00400250" n="PPSEndDate">@always()@param(@STUDY_DATE)</e>
  <e en="F" t="00400251" n="PPSEndTime"></e>
  <e en="F" t="00400252" n="PPSStatus"></e>
  <e en="T" t="00400253" n="PPSID">@remove()</e>
@@ -1037,7 +1038,7 @@
  <e en="T" t="04000550" n="ModifiedAttributesSequence">@remove()</e>
  <e en="T" t="04000561" n="OriginalAttributesSequence">@remove()</e>
  <e en="T" t="20300020" n="TextString">@remove()</e>
- <e en="T" t="30060008" n="StructureSetDate">@date()</e>
+ <e en="T" t="30060008" n="StructureSetDate">@always()@param(@STUDY_DATE)</e>
  <e en="T" t="30060024" n="ReferencedFrameOfReferenceUID">@hashuid(@UIDROOT,this)</e>
  <e en="T" t="300600c2" n="RelatedFrameOfReferenceUID">@hashuid(@UIDROOT,this)</e>
  <e en="T" t="300a0013" n="DoseReferenceUID">@hashuid(@UIDROOT,this)</e>

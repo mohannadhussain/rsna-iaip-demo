@@ -15,8 +15,8 @@ $DIR_PYTHON = '/rsna-iaip/rsna-iaip-demo/';
 $DIR_DATA = '/rsna-iaip/iaip-2023-data-samples/';
 $DIR_CTP = '/rsna-iaip/apps/ctp';
 $TEAMS = [
-    0 => ['name'=>'bucky', 'label'=>'Bucky (except Hyperfine)'],
-    1 => ['name'=>'bucky-hyperfine', 'label'=>'Bucky (only hyperfine)'],
+    0 => ['name'=>'bucky-john', 'label'=>'Bucky (Patient John)'],
+    1 => ['name'=>'bucky-david', 'label'=>'Bucky (Patient David)'],
     2 => ['name'=>'mallard', 'label'=>'Mallard'],
     3 => ['name'=>'jensen', 'label'=>'Jensen'],
 ];
@@ -53,6 +53,9 @@ $TEAMS = [
     $diabled = $is_running ? 'disabled="true"':'';
     $mode = array_key_exists('mode', $_REQUEST) ? $_REQUEST['mode']:'';
     $team_id = array_key_exists('team_id', $_REQUEST) ? intval($_REQUEST['team_id']):0;
+    $new_demographics = array_key_exists('new_demographics', $_REQUEST);
+    $months_offset = array_key_exists('months_offset', $_REQUEST) ? intval($_REQUEST['months_offset']):0;
+    
 
     switch( $mode )
     {
@@ -73,7 +76,13 @@ $TEAMS = [
             flush();
 
             // Kick off the generator
-            $cmd = "cd {$DIR_PYTHON}; python main.py -c {$DIR_CTP} -t {$team['name']} -l './logs' -d {$DIR_DATA}{$team['name']} -nd True";
+            $cmd = "cd {$DIR_PYTHON}; python main.py -c {$DIR_CTP} -t {$team['name']} -l './logs' -d {$DIR_DATA}{$team['name']}";
+            if( $new_demographics ) {
+                $cmd .= " -nd True";
+            }
+            if( $months_offset > 0 ) {
+                $cmd .= " -m " . $months_offset;
+            }
             //echo "{$cmd}<br />\n";
 
             $output = shell_exec($cmd);
@@ -105,6 +114,8 @@ $TEAMS = [
                 echo "<input type='radio' name='team_id' id='{$team['name']}' value='{$index}' /> <label for={$team['name']}>{$team['label']}</label><br />\n";
             }
         ?>
+    <input type="checkbox" id="new_demographics" name="new_demographics" value="true" /><label for="new_demographics">Generate new demographics?</label><br />
+    <label for="months_offset">Months offset</label><input type="text" name="months_offset" id="months_offset" value="0" /><br />
     <input type="hidden" name="mode" value="run" />
     <input type="submit" name="submit" value="Submit" class="btn btn-primary" <?php echo $diabled; ?> />
     <p>Warning: Once you submit, the page may take a full minute or two before it loads, please hold for the patient name and MRN.</p>
