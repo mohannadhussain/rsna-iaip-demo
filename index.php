@@ -15,11 +15,11 @@ $DIR_PYTHON = '/rsna-iaip/rsna-iaip-demo/';
 $DIR_DATA = '/rsna-iaip/iaip-2023-data-samples/';
 $DIR_CTP = '/rsna-iaip/apps/ctp';
 $TEAMS = [
-    0 => ['name'=>'bucky-john', 'label'=>'Bucky (Patient John)'],
-    1 => ['name'=>'bucky-david-priors', 'label'=>'Bucky (Patient David - PRIORS)'],
-    2 => ['name'=>'bucky-david-current', 'label'=>'Bucky (Patient David - CURRENTS)'],
-    3 => ['name'=>'mallard', 'label'=>'Mallard'],
-    4 => ['name'=>'jensen', 'label'=>'Jensen'],
+    0 => ['name'=>'bucky-john', 'folder'=>'bucky-john', 'label'=>'Bucky (Patient John)'],
+    1 => ['name'=>'bucky-david', 'folder'=>'bucky-david-priors', 'label'=>'Bucky (Patient David - PRIORS)'],
+    2 => ['name'=>'bucky-david', 'folder'=>'bucky-david-current', 'label'=>'Bucky (Patient David - CURRENTS)'],
+    3 => ['name'=>'mallard', 'folder'=>'mallard', 'label'=>'Mallard'],
+    4 => ['name'=>'jensen', 'folder'=>'jensen', 'label'=>'Jensen'],
 ];
 ?>
 <html>
@@ -77,7 +77,7 @@ $TEAMS = [
             flush();
 
             // Kick off the generator
-            $cmd = "cd {$DIR_PYTHON}; python main.py -c {$DIR_CTP} -t {$team['name']} -l './logs' -d {$DIR_DATA}{$team['name']}";
+            $cmd = "cd {$DIR_PYTHON}; python main.py -c {$DIR_CTP} -t {$team['name']} -l './logs' -d {$DIR_DATA}{$team['folder']}";
             if( $new_demographics ) {
                 $cmd .= " -nd True";
             }
@@ -112,14 +112,14 @@ $TEAMS = [
         <?php
             foreach( $TEAMS as $index => $team )
             {
-                echo "<input type='radio' name='team_id' id='{$team['name']}' value='{$index}' /> <label for={$team['name']}>{$team['label']}</label><br />\n";
+                echo "<input type='radio' name='team_id' id='{$team['folder']}' value='{$index}' /> <label for={$team['folder']}>{$team['label']}</label><br />\n";
             }
         ?>
 
-    <input type="checkbox" id="new_demographics" name="new_demographics" value="true" checked="true" /><label for="new_demographics">Generate new demographics?</label><br />
+    <input type="checkbox" id="new_demographics" name="new_demographics" value="true" checked="true" />&nbsp;<label for="new_demographics">Generate new demographics?</label><br />
     <p>If checked, new patient demographics will be generated (name, MRN). Otherwise, the demographics from the last run will be used (useful for generating priors and currents)</p>
 
-    <label for="months_offset">Months offset</label><input type="text" name="months_offset" id="months_offset" value="0" /><br />
+    <label for="months_offset">Months offset</label>&nbsp;<input type="text" name="months_offset" id="months_offset" value="0" /><br />
     <p>When generating priors, enter a value like &quot;9&quot; to give them a study date from nine months ago. Otherwise, leave it at zero for today&apos;s date.</p>
 
     <input type="hidden" name="mode" value="run" />

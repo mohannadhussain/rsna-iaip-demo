@@ -84,7 +84,7 @@ if __name__ == '__main__':
                 institution = 'bucky'
 
             if team == "bucky-david":
-                first_name = "david"
+                first_name = "David"
                 institution = 'bucky'
 
             now = datetime.datetime.now().strftime("%d%H%M%S").strip('0')  # Remove the leading zero (makes for illegal UIDs)
