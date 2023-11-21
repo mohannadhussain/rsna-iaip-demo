@@ -1,4 +1,5 @@
 //True = means passes for processing, False = quarantine
 // Remove any modality = Other OR secondary capture
 // Structured Report is NO longer removed here - there's a separate script for that now
-!Modality.equals("OT") * !Modality.equals("SC") * !Modality.equals("PR") * !Modality.equals("DOC")
+// Secondary Capture is also no longer removed here, you can use the delete-by-modality.py script instead
+!Modality.equals("PR") * !Modality.equals("DOC")

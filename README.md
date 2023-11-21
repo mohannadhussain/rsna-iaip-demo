@@ -24,9 +24,10 @@ python main.py -c ~/Apps/ctp -t mallard -l "./logs -d ~/path-to-one-or-more-stud
 python main.py -c ~/Apps/ctp -t jensen -l "./logs -d ~/path-to-one-or-more-studies/
 ```
 
-### # Clean up SRs
+### Clean up DICOM Files By Modality
+Example of cleaning up SRs:
 ```
-python delete-srs.py -d ~/path-to-one-or-more-studies/
+python delete-by-modality.py -m SR -d ~/path-to-one-or-more-studies/
 ```
 
 ### Examples for priors and currents
