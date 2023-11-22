@@ -189,6 +189,44 @@
  <e en="T" t="00120063" n="DeIdentificationMethod">@always()@append(){CTP Default:  based on DICOM PS3.15 AnnexE. Details in 0012,0064}</e>
  <e en="T" t="00120064" n="DeIdentificationMethodCodeSeq">113100/113105/113107/113108/113109</e>
  <e en="F" t="00130010" n="BlockOwner">CTP</e>
+ <e en="T" t="30010010" n="PrivateCreator">@keep()</e>
+ <e en="T" t="30011000" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011001" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011002" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011003" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011004" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011005" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011006" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011007" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011008" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011009" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011010" n="PrivateKoiosSequence">@process()</e>
+ <e en="T" t="30011011" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011012" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011013" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011014" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011015" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011016" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011017" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011018" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011019" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011020" n="PrivateKoiosSequence">@process()</e>
+ <e en="T" t="30011021" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011022" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011023" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011024" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011025" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011026" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011027" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011028" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011029" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011030" n="PrivateKoiosSequence">@process()</e>
+ <e en="T" t="30011031" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011032" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011033" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011034" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011035" n="PrivateKoiosTag">@keep()</e>
+ <e en="T" t="30011036" n="PrivateKoiosTag">@keep()</e>
  <e en="F" t="00131010" n="ProjectName">@always()@param(@PROJECTNAME)</e>
  <e en="F" t="00131011" n="TrialName">@always()@param(@TRIALNAME)</e>
  <e en="F" t="00131012" n="SiteName">@always()@param(@SITENAME)</e>
