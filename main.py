@@ -110,6 +110,7 @@ if __name__ == '__main__':
 
     # Calculate the study date
     study_date = (date.today() - relativedelta(months=months_offset)).strftime("%Y%m%d")
+    content_time = datetime.datetime.now().strftime("%H%M%S")
     print(f"Study date is {study_date}", flush=True)
 
 
@@ -132,6 +133,7 @@ if __name__ == '__main__':
     anonScript = anonScript.replace("{PATIENT_NAME}", patient_name)
     anonScript = anonScript.replace("{TEAM_NAME}", institution)
     anonScript = anonScript.replace("{STUDY_DATE}", study_date)
+    anonScript = anonScript.replace("{CONTENT_TIME}", content_time)
     scriptFile.seek(0)
     scriptFile.write(anonScript)
     scriptFile.truncate()

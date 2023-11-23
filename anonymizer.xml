@@ -11,6 +11,7 @@
  <p t="PATIENT_SEX">{PATIENT_SEX}</p>
  <p t="ACCESSION_PREFIX">{ACCESSION_PREFIX}</p>
  <p t="STUDY_DATE">{STUDY_DATE}</p>
+ <p t="CONTENT_TIME">{CONTENT_TIME}</p>
  <p t="PATIENT_DOB">19600101</p>
  <p t="UIDROOT">2.2022.7762.4247.{UID_POSTFIX}</p>
  <p t="ISSUER_UID">2.2022.7762.4247.123456789.987654321</p>
@@ -31,7 +32,7 @@
  <e en="T" t="00080030" n="StudyTime">@time()</e>
  <e en="T" t="00080031" n="SeriesTime">@time()</e>
  <e en="T" t="00080032" n="AcquisitionTime">@time()</e>
- <e en="T" t="00080033" n="ContentTime">@time()</e>
+ <e en="T" t="00080033" n="ContentTime">@always()@param(@CONTENT_TIME)</e>
  <e en="T" t="00080034" n="OverlayTime">@time()</e>
  <e en="T" t="00080035" n="CurveTime">@time()</e>
  <e en="T" t="00080050" n="AccessionNumber">@param(@ACCESSION_PREFIX)@hash(this,8)</e>
