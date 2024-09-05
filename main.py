@@ -3,18 +3,18 @@ from os import path
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
-
+#TODO update these to /rsna-iaip/apps/dcm4che-5.23.2/bin/
 STORESCU_PATH = '~/Apps/dcm4che-5.23.2/bin/storescu'
 STOWRS_PATH = '~/Apps/dcm4che-5.23.2/bin/stowrs'
 
-DICOM_DEST = {'bucky-john': [{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
-              'bucky-david': [{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
-              'mallard':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
-              'jensen':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}]}
-STOW_DEST = {'bucky-john': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
-             'bucky-david': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
-             'mallard': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}],
-             'jensen': [{'name':'localhost','url':'http://localhost:8042/dicom-web/studies'}]}
+DICOM_DEST = {'curie-sarah': [{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
+              'curie-adam': [{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
+              'ettinger':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}],
+              'quimby':[{'host':'localhost','port':4242,'aet':'ORTHANC','headerOnly':False}]}
+STOW_DEST = {'curie-sarah': [],
+             'curie-adam': [],
+             'ettinger': [],
+             'quimby': []}
 
 
 LAST_NAMES = ['Harrold','Green','Brown','James','Steel','Bond','Jones','Connor','Williams','Hortons','Park','Frederik','Singh','Patel','Hawk','Smith','Stephenson','Lewis','Nicholls','Howard','Grant','Liu','Victor','McDonald','Lamb','Young','Ali','Chan','Thompson','Morgan','Campbell','Noble','Bell']
@@ -75,17 +75,14 @@ if __name__ == '__main__':
             patient_sex = "M"
             first_name = "Frank"
 
-            if team == "jensen":
-                first_name = "Francine"
+            if team == "curie-sarah":
+                first_name = "Sarah"
+                institution = 'curie'
                 patient_sex = "F"
 
-            if team == "bucky-john":
-                first_name = "John"
-                institution = 'bucky'
-
-            if team == "bucky-david":
-                first_name = "David"
-                institution = 'bucky'
+            if team == "curie-adam":
+                first_name = "Adam"
+                institution = 'curie'
 
             now = datetime.datetime.now().strftime("%d%H%M%S").strip('0')  # Remove the leading zero (makes for illegal UIDs)
             last_name = random.choice(LAST_NAMES)

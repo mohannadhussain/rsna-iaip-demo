@@ -12,14 +12,14 @@ ini_set('max_execution_time', '300');
 
 
 $DIR_PYTHON = '/rsna-iaip/rsna-iaip-demo/';
-$DIR_DATA = '/rsna-iaip/iaip-2023-data-samples/';
+$DIR_DATA = '/rsna-iaip/2025-data/';
 $DIR_CTP = '/rsna-iaip/apps/ctp';
 $TEAMS = [
-    0 => ['name'=>'bucky-john', 'folder'=>'bucky-john', 'label'=>'Bucky (Patient John)'],
-    1 => ['name'=>'bucky-david', 'folder'=>'bucky-david-priors', 'label'=>'Bucky (Patient David - PRIORS)'],
-    2 => ['name'=>'bucky-david', 'folder'=>'bucky-david-current', 'label'=>'Bucky (Patient David - CURRENTS)'],
-    3 => ['name'=>'mallard', 'folder'=>'mallard', 'label'=>'Mallard'],
-    4 => ['name'=>'jensen', 'folder'=>'jensen', 'label'=>'Jensen'],
+    0 => ['name'=>'curie-adam', 'folder'=>'curie-adam', 'label'=>'Curie (Patient Adam)'],
+    1 => ['name'=>'curie-sarah', 'folder'=>'curie-sarah', 'label'=>'Curie (Patient Sarah)'],
+    2 => ['name'=>'ettinger', 'folder'=>'ettinger', 'label'=>'Ettinger'],
+    3 => ['name'=>'quimby', 'folder'=>'quimby-prior', 'label'=>'Quimby PRIORS'],
+    4 => ['name'=>'quimby', 'folder'=>'quimby', 'label'=>'Quimby CURRENTS'],
 ];
 ?>
 <html>
