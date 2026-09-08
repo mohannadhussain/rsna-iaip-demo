@@ -146,7 +146,8 @@ if __name__ == '__main__':
     # Step 4: Copy DICOM to CTP's input directory, then wait for processing to happen
     os.system(f"cp -r {dicomIn}/* {ctpPath}/roots/DirectoryImportService/import/")
     print('Copied DICOM to CTP', flush=True)
-    last_count = -1
+    last_count = 0
+    time.sleep(20)
     while( True ):
         time.sleep(10)
         current_count = countFiles(f'{ctpPath}/roots/FileStorageService/__default/')
